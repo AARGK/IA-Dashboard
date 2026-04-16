@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>داشبورد مناقصة هيئة التأمين 74-2026</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Arial, sans-serif; background: #f9fafb; }
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #f1f5f9; }
+  ::-webkit-scrollbar-thumb { background: #16a34a; border-radius: 3px; }
+  .tab-scroll { scrollbar-width: thin; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+  .fade-in { animation: fadeIn 0.25s ease-out; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState } = React;
+
+const TABS = [
+  { id:"overview",     label:"نظرة عامة",           icon:"🏠" },
+  { id:"scope",        label:"نطاق العمل",           icon:"🗺️" },
+  { id:"timeline",     label:"الجدول الزمني",        icon:"📅" },
+  { id:"evaluation",   label:"معايير التقييم",       icon:"⭐" },
+  { id:"team",         label:"فريق العمل",           icon:"👥" },
+  { id:"deliverables", label:"المخرجات",             icon:"📦" },
+  { id:"creative",     label:"المخرجات الإبداعية",  icon:"🎨" },
+  { id:"faq",          label:"استفسارات المنافسة",   icon:"❓" },
+];
+
+/* ──────────────────── Shared components ──────────────────── */
+function Card({ children, className="" }) {
+  return <div className={`bg-white rounded-xl border border-gray-200 p-6 ${className}`}>{children}</div>;
+}
+function SectionTitle({ children }) {
+  return (
+    <h2 className="text-lg font-bold text-gray-800 mb-5 pb-2 border-b-2 border-green-500 flex items-center gap-2">
+      {children}
+    </h2>
+  );
+}
+function StatCard({ value, label, color, icon }) {
+  return (
+    <div className={`${color} text-white rounded-xl p-5`}>
+      <div className="text-3xl mb-1">{icon}</div>
+      <div className="text-2xl font-extrabold">{value}</div>
+      <div className="text-sm opacity-90 mt-1">{label}</div>
+    </div>
+  );
+}
+function Badge({ children, color="bg-green-100 text-green-700" }) {
+  return <span className={`inline-flex px-2 py-0.5 rounded-full text-xs font-medium ${color}`}>{children}</span>;
+}
+
+/* ──────────────────── Overview ──────────────────── */
+function OverviewTab() {
+  return (
+    <div className="space-y-6 fade-in">
+      {/* Hero */}
+      <div className="rounded-xl p-7 text-white" style={{background:"linear-gradient(135deg,#14532d,#166534,#15803d)"}}>
+        <div className="flex items-start gap-4">
+          <div className="bg-white/15 rounded-xl p-3 text-3xl shrink-0">🏛️</div>
+          <div>
+            <p className="text-green-200 text-xs mb-1">هيئة التأمين — كراسة الشروط والمواصفات (تقنية المعلومات)</p>
+            <h1 className="text-xl font-extrabold leading-snug mb-3">
+              تطوير استراتيجية الابتكار<br/>
+              تصميم مختبرات الحلول وإدارة محفظة البرامج التنفيذية السنوية
+            </h1>
+            <div className="flex flex-wrap gap-2">
+              {["رقم الكراسة: 74-2026","مدة التنفيذ: 18 شهراً","تصنيف: عام — Public"].map((t,i)=>(
+                <span key={i} className="bg-white/20 rounded-full px-3 py-1 text-xs">{t}</span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatCard value="18" label="شهراً مدة التنفيذ"     color="bg-green-600"  icon="📅" />
+        <StatCard value="26" label="مخرجاً رئيسياً"         color="bg-teal-600"   icon="📦" />
+        <StatCard value="7"  label="أدوار في فريق العمل"  color="bg-emerald-700" icon="👥" />
+        <StatCard value="70%" label="نسبة الاجتياز"        color="bg-green-800"  icon="⭐" />
+      </div>
+
+      {/* About */}
+      <Card>
+        <SectionTitle>عن المنافسة</SectionTitle>
+        <p className="text-gray-700 leading-relaxed text-sm mb-4">
+          تسعى هيئة التأمين إلى إطلاق منظومة ابتكار مؤسسية متكاملة تُعزز قدرتها على تحقيق مستهدفات رؤية المملكة 2030، وذلك عبر استقطاب شريك استراتيجي متخصص يتولى وضع استراتيجية الابتكار، وبناء مختبر الحلول، وتشغيل برامج دعم الشركات الناشئة، وقياس الأثر.
+        </p>
+        <div className="grid md:grid-cols-2 gap-4">
+          <div className="bg-green-50 rounded-lg p-4 border-r-4 border-green-500">
+            <h4 className="font-semibold text-green-800 text-sm mb-1">الجهة المُصدِرة</h4>
+            <p className="text-gray-600 text-xs">هيئة التأمين (Insurance Authority) — جهة حكومية تنظيمية للقطاع التأميني في المملكة العربية السعودية</p>
+          </div>
+          <div className="bg-teal-50 rounded-lg p-4 border-r-4 border-teal-500">
+            <h4 className="font-semibold text-teal-800 text-sm mb-1">طبيعة المشروع</h4>
+            <p className="text-gray-600 text-xs">بناء نظام بيئي للابتكار من الصفر: استراتيجية، هوية، منصة تقنية، برامج ريادة أعمال، وقياس أثر</p>
+          </div>
+        </div>
+      </Card>
+
+      {/* Goals */}
+      <Card>
+        <SectionTitle>المستهدفات الاستراتيجية الرئيسية</SectionTitle>
+        <div className="grid md:grid-cols-3 gap-3">
+          {[
+            {icon:"🎯",text:"تفعيل الإطار الاستراتيجي للابتكار"},
+            {icon:"⚙️",text:"الحوكمة والنموذج التشغيلي المتكامل"},
+            {icon:"🚀",text:"تشغيل برامج دعم الشركات الناشئة"},
+            {icon:"🔬",text:"تفعيل مختبر الحلول (Innovation Lab)"},
+            {icon:"📊",text:"قياس العائد والأثر (BOM)"},
+            {icon:"🤝",text:"بناء مجتمع ريادة الأعمال التأميني"},
+          ].map((item,i)=>(
+            <div key={i} className="flex items-center gap-3 bg-gray-50 rounded-lg p-3 border border-gray-100">
+              <span className="text-xl shrink-0">{item.icon}</span>
+              <span className="text-xs text-gray-700">{item.text}</span>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      {/* Submission Docs */}
+      <Card>
+        <SectionTitle>متطلبات التقديم</SectionTitle>
+        <div className="grid md:grid-cols-2 gap-4">
+          {[
+            { title:"وثائق العرض الفني", color:"border-blue-400 bg-blue-50", badge:"bg-blue-500",
+              items:["الخبرات السابقة الموثقة","نسخة من وثيقة المنافسة مختومة","خطة إدارة المشروع والجدول الزمني","خبرات فريق العمل والسير الذاتية"] },
+            { title:"وثائق العرض المالي", color:"border-amber-400 bg-amber-50", badge:"bg-amber-500",
+              items:["جدول الكميات شاملاً الأسعار","جدول الدفعات الزمنية","الضمان الابتدائي"] },
+          ].map((s,i)=>(
+            <div key={i} className={`rounded-xl border-2 ${s.color} p-4`}>
+              <h4 className="font-semibold text-gray-800 text-sm mb-3 flex items-center gap-2">
+                <span className={`${s.badge} text-white text-xs px-2 py-0.5 rounded-full`}>{s.title}</span>
+              </h4>
+              <ul className="space-y-1.5">
+                {s.items.map((item,j)=>(
+                  <li key={j} className="flex items-start gap-2 text-xs text-gray-700">
+                    <span className="text-green-600 font-bold shrink-0">✓</span>{item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+/* ──────────────────── Scope ──────────────────── */
+function ScopeTab() {
+  const [active, setActive] = useState(0);
+  const pillars = [
+    { num:"1", title:"وضع استراتيجية الابتكار", icon:"🗺️", color:"bg-green-600", light:"border-green-200 bg-green-50",
+      items:["دراسة الوضع الراهن وتحليل الفجوات","تطوير نموذج تشغيلي متكامل (Operating Model)","وضع إطار الحوكمة والرقابة","تصميم آلية إدارة سير العمل","إعداد نموذج قياس العائد (BOM)","وضع خطة تطوير وتحسين مستمر","تصميم نموذج إبداعي (Conceptual Design)"] },
+    { num:"2", title:"بناء الهوية والتسويق", icon:"🎨", color:"bg-teal-600", light:"border-teal-200 bg-teal-50",
+      items:["بناء الهوية البصرية لمختبر الابتكار","تحديد أهداف الحملات التسويقية","تصميم برنامج فعاليات Go-To-Market","تقييم وضع السوق وتحليل المنافسين","اختيار القنوات التسويقية المناسبة","تطوير المحتوى الرقمي والتسويقي","إعادة تصميم/تطوير موقع الهيئة الإلكتروني"] },
+    { num:"3", title:"تشغيل البرامج والمنصات", icon:"⚡", color:"bg-emerald-600", light:"border-emerald-200 bg-emerald-50",
+      items:["منصة إدارة الابتكار (Web & Mobile Ready)","آلية إدارة سير العمل وتفعيل مسار الأفكار","قاعدة بيانات مسرّعات الأعمال","إدارة الهاكاثونات ورسم خارطة الطريق","إدارة برنامج مسرّع الأعمال (Accelerator)","تشغيل برنامج الحاضنات","إدارة استوديو الابتكار","برنامج InGrowth للشركات الناشئة","تفعيل منصة المزايدة","بناء مجتمع ريادة الأعمال","تفعيل برنامج الشراكات"] },
+    { num:"4", title:"قياس الأثر والتحول", icon:"📈", color:"bg-green-700", light:"border-green-300 bg-green-50",
+      items:["إدارة أصول الابتكار (Insurtech Asset Pool Management)","وضع مؤشرات الأداء الرئيسية (KPIs)","إعداد تقرير الأثر السنوي (Annual Impact Report)","قياس مؤشرات التقييم المستمر","متابعة عوائد الاستثمار في الابتكار (ROI)","رصد المخرجات على مستوى البيئة والقطاع"] },
+    { num:"5", title:"فعاليات وبرامج تواصل", icon:"🤝", color:"bg-teal-700", light:"border-teal-300 bg-teal-50",
+      items:["فعاليات تواصل ورياديات (Networking Events)","ندوات ومحاضرات متخصصة","دورات تدريبية وورش عمل (Workshops)","حملات توعوية ومجتمعية","Demo Day لعرض منتجات الشركات الناشئة","فعاليات Go-To-Market","مجتمع ريادة الأعمال التأميني"] },
+  ];
+
+  return (
+    <div className="space-y-6 fade-in">
+      {/* Summary strip */}
+      <div className="grid grid-cols-5 gap-2">
+        {pillars.map((p,i)=>(
+          <button key={i} onClick={()=>setActive(i)}
+            className={`rounded-xl p-3 text-center transition-all ${active===i ? `${p.color} text-white shadow-lg scale-105` : "bg-white border border-gray-200 text-gray-500 hover:border-green-300"}`}>
+            <div className="text-xl mb-1">{p.icon}</div>
+            <div className="text-xs font-semibold leading-tight">{p.title}</div>
+          </button>
+        ))}
+      </div>
+
+      {/* Detail */}
+      <div className={`rounded-xl border-2 ${pillars[active].light} p-6 fade-in`}>
+        <div className="flex items-center gap-3 mb-5">
+          <span className="text-4xl">{pillars[active].icon}</span>
+          <div>
+            <p className="text-xs text-gray-500">المحور {pillars[active].num} من 5</p>
+            <h3 className="text-lg font-extrabold text-gray-800">{pillars[active].title}</h3>
+            <p className="text-xs text-gray-500">{pillars[active].items.length} مهمة / مخرج</p>
+          </div>
+        </div>
+        <div className="grid md:grid-cols-2 gap-2">
+          {pillars[active].items.map((item,j)=>(
+            <div key={j} className="flex items-start gap-2 bg-white rounded-lg p-3 shadow-sm border border-gray-100">
+              <span className="text-green-600 font-bold text-sm shrink-0 mt-0.5">✓</span>
+              <span className="text-sm text-gray-700">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Map */}
+      <Card>
+        <SectionTitle>خريطة نطاق العمل الإجمالية</SectionTitle>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-green-700 text-white">
+                <th className="py-2 px-3 text-right rounded-tr-lg">المحور</th>
+                <th className="py-2 px-3 text-center">عدد المهام</th>
+                <th className="py-2 px-3 text-right rounded-tl-lg">أبرز المخرجات</th>
+              </tr>
+            </thead>
+            <tbody>
+              {pillars.map((p,i)=>(
+                <tr key={i} className={i%2===0?"bg-gray-50":"bg-white"}>
+                  <td className="py-2 px-3 font-medium text-gray-800">{p.icon} {p.title}</td>
+                  <td className="py-2 px-3 text-center"><Badge>{p.items.length} مهمة</Badge></td>
+                  <td className="py-2 px-3 text-xs text-gray-600">{p.items[0]}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+/* ──────────────────── Timeline ──────────────────── */
+function TimelineTab() {
+  const phases = [
+    { phase:"المرحلة الأولى",  days:30,  color:"bg-green-500",  border:"border-green-300 bg-green-50",
+      items:["إنشاء لجنة التوجيه الاستراتيجي (Inception)","دراسة الوضع الراهن وتحليل الفجوات","خطة إدارة المشروع الشاملة","تقرير التحليل البيئي","دليل الإجراءات التشغيلية (SOPs) — مسودة"] },
+    { phase:"المرحلة الثانية", days:30,  color:"bg-teal-500",   border:"border-teal-300 bg-teal-50",
+      items:["تقرير الاستراتيجية الابتكارية الكاملة","وثيقة الهوية البصرية","خطة التسويق والتواصل","نطاق المنصة الرقمية","نموذج قياس الأثر (BOM)"] },
+    { phase:"المرحلة الثالثة", days:45,  color:"bg-emerald-500", border:"border-emerald-300 bg-emerald-50",
+      items:["منصة إدارة الابتكار (Prototype)","هيكل الهاكاثون الأول","مسار إدارة الأفكار","خطة مجتمع الريادة","Branding & Collaborators"] },
+    { phase:"المرحلة الرابعة", days:60,  color:"bg-green-600",  border:"border-green-400 bg-green-50",
+      items:["إطلاق منصة الابتكار (MVP كامل)","تشغيل برنامج InGrowth","تنفيذ الهاكاثون الأول","برامج التدريب والورش","تقرير الأداء الأول"] },
+    { phase:"المرحلة الخامسة", days:90,  color:"bg-teal-600",   border:"border-teal-400 bg-teal-50",
+      items:["تشغيل مسرّع الأعمال (Accelerator)","Demo Day الأول","Go-To-Market للشركات الناشئة","فعاليات مجتمع الريادة","تقرير أثر مرحلي"] },
+    { phase:"المرحلة السادسة", days:285, color:"bg-green-800",  border:"border-green-500 bg-green-50",
+      items:["برامج الشراكات الاستراتيجية","بناء مجتمع Insurtech","تقرير الأثر السنوي","خطة الاستدامة والتطوير"] },
+  ];
+  const total = phases.reduce((s,p)=>s+p.days,0);
+
+  return (
+    <div className="space-y-6 fade-in">
+      <Card>
+        <SectionTitle>الجدول الزمني للمشروع</SectionTitle>
+        <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-5 flex items-center gap-4">
+          <span className="text-3xl">📅</span>
+          <div>
+            <p className="text-green-800 font-semibold text-sm">مدة التنفيذ الإجمالية: 18 شهراً</p>
+            <p className="text-green-600 text-xs">تُحسب بالتقويم الميلادي — تبدأ من تاريخ إشعار البدء بالعمل</p>
+          </div>
+        </div>
+
+        {/* Visual bar */}
+        <div className="mb-5">
+          <div className="flex h-10 rounded-xl overflow-hidden gap-0.5">
+            {phases.map((p,i)=>(
+              <div key={i} className={`${p.color} flex items-center justify-center text-white text-xs font-bold`}
+                style={{width:`${(p.days/total)*100}%`}}>
+                {i+1}
+              </div>
+            ))}
+          </div>
+          <div className="flex mt-1">
+            {phases.map((p,i)=>(
+              <div key={i} style={{width:`${(p.days/total)*100}%`}} className="text-center text-xs text-gray-400 truncate">{p.days}ي</div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {phases.map((p,i)=>(
+            <div key={i} className={`rounded-xl border-2 ${p.border} p-4`}>
+              <div className="flex items-center justify-between mb-3">
+                <h3 className="font-bold text-gray-800 text-sm">{p.phase}</h3>
+                <span className={`${p.color} text-white text-xs px-2 py-1 rounded-full`}>{p.days} يوم</span>
+              </div>
+              <ul className="space-y-1.5">
+                {p.items.map((d,j)=>(
+                  <li key={j} className="text-xs text-gray-700 flex items-start gap-1.5">
+                    <span className="text-green-500 shrink-0 font-bold">→</span>{d}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        <Card>
+          <SectionTitle>مكان التنفيذ</SectionTitle>
+          <div className="space-y-3">
+            <div className="flex gap-3 bg-green-50 rounded-lg p-4 border border-green-200">
+              <span className="text-2xl">🏢</span>
+              <div>
+                <h4 className="font-semibold text-green-800 text-sm">التواجد الميداني</h4>
+                <p className="text-xs text-gray-600 mt-1">5 أيام أسبوعياً في مقر هيئة التأمين لفريق العمل الأساسي</p>
+              </div>
+            </div>
+            <div className="flex gap-3 bg-blue-50 rounded-lg p-4 border border-blue-200">
+              <span className="text-2xl">💻</span>
+              <div>
+                <h4 className="font-semibold text-blue-800 text-sm">العمل عن بُعد</h4>
+                <p className="text-xs text-gray-600 mt-1">مسموح به للمهام غير الميدانية بموافقة الهيئة</p>
+              </div>
+            </div>
+          </div>
+        </Card>
+        <Card>
+          <SectionTitle>نقل المعرفة والتدريب</SectionTitle>
+          <div className="space-y-3">
+            {["تدريب فريق هيئة التأمين على منهجيات الابتكار","نقل المعرفة التقنية لفريق تقنية المعلومات","توثيق الإجراءات في SOPs قابلة للاستخدام","ورش عمل دورية طوال فترة العقد"].map((item,i)=>(
+              <div key={i} className="flex items-start gap-2 text-xs text-gray-700">
+                <span className="text-teal-600 font-bold shrink-0">◉</span>{item}
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────────── Evaluation ──────────────────── */
+function EvaluationTab() {
+  const criteria = [
+    { label:"خبرة الشركة",               weight:30, color:"bg-emerald-600", desc:"خبرة لا تقل عن 3 سنوات في الابتكار المؤسسي والشراكات الحكومية والتحولات المؤسسية مع برامج ريادة حقيقية" },
+    { label:"كفاءة فريق العمل وخبراته", weight:25, color:"bg-green-500",   desc:"مؤهلات وشهادات وتجارب سابقة موثقة لأعضاء الفريق المخصص للمشروع" },
+    { label:"المنهجية والجودة",           weight:25, color:"bg-teal-500",   desc:"المنهجية الفنية والأدوات المقترحة لكل برنامج مع جدول دقيق ومخرجات واضحة وقابلة للقياس" },
+    { label:"الحوكمة والشراكات",          weight:20, color:"bg-green-700",  desc:"جودة الحوكمة المقترحة، والتحالفات المكوّنة، وشراكات متعددة التخصصات لإنجاز المشروع" },
+  ];
+
+  return (
+    <div className="space-y-6 fade-in">
+      <Card>
+        <SectionTitle>معايير التقييم الفني (100 نقطة)</SectionTitle>
+        <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 mb-5">
+          <p className="text-amber-800 font-semibold text-sm">⚠️ نسبة الاجتياز: 70 نقطة فأعلى من أصل 100 نقطة</p>
+        </div>
+
+        {/* Visual breakdown */}
+        <div className="mb-6">
+          <div className="flex h-14 rounded-xl overflow-hidden gap-0.5">
+            {criteria.map((c,i)=>(
+              <div key={i} className={`${c.color} flex flex-col items-center justify-center text-white`}
+                style={{width:`${c.weight}%`}}>
+                <span className="text-lg font-extrabold">{c.weight}%</span>
+              </div>
+            ))}
+          </div>
+          <div className="flex mt-2 flex-wrap gap-2">
+            {criteria.map((c,i)=>(
+              <div key={i} className="flex items-center gap-1.5">
+                <span className={`w-3 h-3 rounded-sm ${c.color}`}></span>
+                <span className="text-xs text-gray-600">{c.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-4">
+          {criteria.map((c,i)=>(
+            <div key={i} className="border border-gray-200 rounded-xl p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="font-semibold text-gray-800 text-sm">{c.label}</h4>
+                <span className={`${c.color} text-white font-bold text-sm px-3 py-1 rounded-full`}>{c.weight} نقطة</span>
+              </div>
+              <p className="text-xs text-gray-600">{c.desc}</p>
+              <div className="mt-3 bg-gray-100 rounded-full h-1.5">
+                <div className={`${c.color} h-1.5 rounded-full transition-all`} style={{width:`${c.weight*3.33}%`}}></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <div className="grid md:grid-cols-2 gap-4">
+        <Card>
+          <SectionTitle>القائمة الإلزامية للتأهل</SectionTitle>
+          <div className="space-y-2">
+            {["تقديم العرض الفني والمالي كاملَين","تقديم الضمان الابتدائي المطلوب","الالتزام بمتطلبات تنسيق العروض","عدم انطباق حالات الاستبعاد على المتنافس","تقديم وثائق المنافسة مختومة ومعتمدة","خبرة لا تقل عن 3 سنوات في الابتكار المؤسسي","الالتزام باشتراطات الأمن السيبراني (ملحق 4)"].map((item,i)=>(
+              <div key={i} className="flex items-start gap-2 bg-red-50 border border-red-100 rounded-lg p-2.5">
+                <span className="text-red-500 font-bold text-xs shrink-0 mt-0.5">✱</span>
+                <span className="text-xs text-gray-700">{item}</span>
+              </div>
+            ))}
+          </div>
+        </Card>
+        <Card>
+          <SectionTitle>الالتزامات التعاقدية الرئيسية</SectionTitle>
+          <div className="space-y-3">
+            {[
+              {icon:"🔒",t:"السرية",d:"التزام كامل بسرية بيانات ومعلومات الهيئة طوال مدة العقد وبعده"},
+              {icon:"🛡️",t:"الأمن السيبراني",d:"الامتثال لمتطلبات NCA والملحق 4 من كراسة الشروط"},
+              {icon:"🇸🇦",t:"السعودة",d:"الالتزام بنسب التوطين المقررة في أنظمة العمل"},
+              {icon:"📝",t:"التقارير الدورية",d:"إحاطات منتظمة ولجنة توجيه استراتيجي مشتركة"},
+            ].map((item,i)=>(
+              <div key={i} className="flex gap-3 bg-gray-50 rounded-lg p-3">
+                <span className="text-xl shrink-0">{item.icon}</span>
+                <div>
+                  <h5 className="font-semibold text-gray-800 text-xs">{item.t}</h5>
+                  <p className="text-xs text-gray-500 mt-0.5">{item.d}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+}
+
+/* ──────────────────── Team ──────────────────── */
+function TeamTab() {
+  const team = [
+    { role:"مدير مشروع الابتكار", en:"Innovation Program Director", exp:"10 سنوات", badge:"bg-green-500", border:"border-green-300 bg-green-50",
+      tasks:["قيادة خطة المشروع الشاملة","التنسيق مع لجنة التوجيه الاستراتيجي","ضمان جودة المخرجات والجدول الزمني"] },
+    { role:"مستشار استراتيجي للابتكار", en:"Strategy Consultant", exp:"8 سنوات", badge:"bg-teal-500", border:"border-teal-300 bg-teal-50",
+      tasks:["وضع الاستراتيجية التفصيلية","إعداد الدراسات المرجعية والتحليل البيئي","تطوير الأطر والنماذج التشغيلية"] },
+    { role:"مدير تطوير أعمال وشراكات", en:"Business Development & Partnerships", exp:"7 سنوات", badge:"bg-emerald-500", border:"border-emerald-300 bg-emerald-50",
+      tasks:["بناء الشراكات الاستراتيجية","استقطاب الجهات الداعمة والممولة","إدارة علاقات القطاع التأميني"] },
+    { role:"كبير مطوري الأنظمة", en:"Full-Stack Senior Developer", exp:"5 سنوات", badge:"bg-blue-500", border:"border-blue-300 bg-blue-50",
+      tasks:["تطوير منصة إدارة الابتكار (Web & Mobile)","تكامل الأنظمة والمنصات التقنية","بناء لوحات التحكم والتقارير الرقمية"] },
+    { role:"بناء المشاريع الناشئة", en:"Venture Builder (Zero-to-One)", exp:"خبرة إطلاق شركات", badge:"bg-purple-500", border:"border-purple-300 bg-purple-50",
+      tasks:["استقطاب الشركات الناشئة وتقييمها","دعم رحلة الشركات من الفكرة للسوق","إدارة مسرّع الأعمال والحاضنات"] },
+    { role:"مدير العلاقات الاستثمارية", en:"Investment Relations Lead (CVC)", exp:"8 سنوات", badge:"bg-indigo-500", border:"border-indigo-300 bg-indigo-50",
+      tasks:["إدارة صندوق رأس المال الاستثماري (CVC)","ربط الشركات الناشئة بالمستثمرين","تقييم العوائد وإعداد تقارير الاستثمار"] },
+    { role:"مصمم خدمات متقدم", en:"Service Designer (Design Thinking)", exp:"5 سنوات", badge:"bg-rose-500", border:"border-rose-300 bg-rose-50",
+      tasks:["تطبيق منهجيات Design Thinking","تصميم تجربة المستخدم للمنصات","قيادة ورش العمل الإبداعية"] },
+  ];
+
+  return (
+    <div className="space-y-6 fade-in">
+      <Card>
+        <SectionTitle>فريق العمل المطلوب — 7 أدوار</SectionTitle>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-5">
+          <p className="text-blue-800 text-xs"><strong>⚠️ ملاحظة:</strong> لا يجوز تغيير أعضاء الفريق إلا بموافقة الهيئة مسبقاً وخطياً.</p>
+        </div>
+        <div className="grid md:grid-cols-2 gap-4">
+          {team.map((member,i)=>(
+            <div key={i} className={`rounded-xl border-2 ${member.border} p-4`}>
+              <div className="flex items-start justify-between gap-2 mb-3">
+                <div>
+                  <h3 className="font-bold text-gray-800 text-sm">{member.role}</h3>
+                  <p className="text-xs text-gray-400 mt-0.5">{member.en}</p>
+                </div>
+                <span className={`${member.badge} text-white text-xs px-2 py-1 rounded-full whitespace-nowrap shrink-0`}>{member.exp}</span>
+              </div>
+              <ul className="space-y-1.5">
+                {member.tasks.map((task,j)=>(
+                  <li key={j} className="text-xs text-gray-700 flex items-start gap-1.5">
+                    <span className="text-green-600 shrink-0">▸</span>{task}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card>
+        <SectionTitle>اشتراطات الكوادر الوطنية</SectionTitle>
+        <div className="grid md:grid-cols-3 gap-4">
+          {[
+            {icon:"🇸🇦",t:"النسبة الوطنية",d:"الالتزام بنسب التوطين وفق نظام العمل واشتراطات الهيئة"},
+            {icon:"📜",t:"المؤهلات",d:"مؤهلات أكاديمية وشهادات مهنية معتمدة في الابتكار والتقنية"},
+            {icon:"🔄",t:"الاستمرارية",d:"إبلاغ الهيئة فور أي تغيير في أعضاء الفريق مع اقتراح بديل مكافئ"},
+          ].map((item,i)=>(
+            <div key={i} className="bg-gray-50 rounded-xl p-4 text-center border border-gray-100">
+              <div className="text-3xl mb-2">{item.icon}</div>
+              <h4 className="font-semibold text-gray-800 text-sm mb-1">{item.t}</h4>
+              <p className="text-xs text-gray-500">{item.d}</p>
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+/* ──────────────────── Deliverables ──────────────────── */
+function DeliverablesTab() {
+  const deliverables = [
+    {n:1,title:"دراسة الوضع الراهن",unit:"وثيقة",phase:1},
+    {n:2,title:"استراتيجية الابتكار",unit:"وثيقة",phase:1},
+    {n:3,title:"النموذج التشغيلي (Operating Model)",unit:"وثيقة",phase:1},
+    {n:4,title:"خطة المشروع الشاملة",unit:"وثيقة",phase:1},
+    {n:5,title:"تقرير التحليل البيئي",unit:"تقرير",phase:1},
+    {n:6,title:"خطة التواصل والمشاركة",unit:"وثيقة",phase:1},
+    {n:7,title:"دليل الإجراءات التشغيلية (SOPs)",unit:"دليل",phase:2},
+    {n:8,title:"وثيقة الهوية البصرية",unit:"وثيقة",phase:2},
+    {n:9,title:"منصة إدارة الابتكار — Prototype",unit:"نظام",phase:3},
+    {n:10,title:"قاعدة بيانات مسرّعات الأعمال",unit:"نظام",phase:3},
+    {n:11,title:"خطة Go-To-Market",unit:"وثيقة",phase:3},
+    {n:12,title:"تصميم برامج الهاكاثون",unit:"وثيقة",phase:3},
+    {n:13,title:"منصة إدارة الابتكار — MVP كامل",unit:"نظام",phase:4},
+    {n:14,title:"تشغيل الهاكاثون الأول",unit:"فعالية",phase:4},
+    {n:15,title:"برنامج InGrowth للشركات الناشئة",unit:"برنامج",phase:4},
+    {n:16,title:"تدريب وتأهيل كوادر الهيئة (أولى)",unit:"تقرير",phase:4},
+    {n:17,title:"مخرجات Go-To-Market — المرحلة الأولى",unit:"تقرير",phase:4},
+    {n:18,title:"إعادة تصميم الموقع الإلكتروني",unit:"موقع",phase:4},
+    {n:19,title:"برنامج مسرّع الأعمال (Accelerator)",unit:"برنامج",phase:5},
+    {n:20,title:"Demo Day الأول",unit:"فعالية",phase:5},
+    {n:21,title:"لوحة تحكم المشتريات Go-To-Market",unit:"نظام",phase:5},
+    {n:22,title:"تقرير مرحلي للأداء",unit:"تقرير",phase:5},
+    {n:23,title:"برامج الشراكات الاستراتيجية",unit:"برنامج",phase:6},
+    {n:24,title:"تقييم وضع السوق المحدّث",unit:"تقرير",phase:6},
+    {n:25,title:"تقرير الأثر السنوي (Annual Impact Report)",unit:"تقرير",phase:6},
+    {n:26,title:"خطة الاستدامة والتطوير",unit:"وثيقة",phase:6},
+  ];
+
+  const unitColor = (u) => {
+    if (["نظام","موقع"].includes(u)) return "bg-teal-100 text-teal-700";
+    if (["برنامج","فعالية"].includes(u)) return "bg-emerald-100 text-emerald-700";
+    if (u==="دليل") return "bg-purple-100 text-purple-700";
+    return "bg-green-100 text-green-700";
+  };
+
+  const counts = {
+    "وثائق وأدلة": deliverables.filter(d=>["وثيقة","دليل"].includes(d.unit)).length,
+    "تقارير": deliverables.filter(d=>d.unit==="تقرير").length,
+    "أنظمة وتقنية": deliverables.filter(d=>["نظام","موقع"].includes(d.unit)).length,
+    "برامج وفعاليات": deliverables.filter(d=>["برنامج","فعالية"].includes(d.unit)).length,
+  };
+
+  return (
+    <div className="space-y-6 fade-in">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        {Object.entries(counts).map(([k,v],i)=>{
+          const colors=["bg-green-100 text-green-800","bg-blue-100 text-blue-800","bg-teal-100 text-teal-800","bg-emerald-100 text-emerald-800"];
+          return (
+            <div key={i} className={`${colors[i]} rounded-xl p-4 text-center`}>
+              <div className="text-2xl font-extrabold">{v}</div>
+              <div className="text-xs font-medium mt-1">{k}</div>
+            </div>
+          );
+        })}
+      </div>
+
+      <Card>
+        <SectionTitle>جدول المخرجات الكاملة — 26 مخرجاً</SectionTitle>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="bg-green-700 text-white">
+                <th className="py-2 px-3 text-center rounded-tr-lg w-10">#</th>
+                <th className="py-2 px-3 text-right">المخرج</th>
+                <th className="py-2 px-3 text-center w-20">النوع</th>
+                <th className="py-2 px-3 text-center rounded-tl-lg w-20">المرحلة</th>
+              </tr>
+            </thead>
+            <tbody>
+              {deliverables.map((d,i)=>(
+                <tr key={i} className={i%2===0?"bg-gray-50":"bg-white"}>
+                  <td className="py-2 px-3 text-center text-gray-400 font-mono text-xs">{d.n}</td>
+                  <td className="py-2 px-3 text-gray-800">{d.title}</td>
+                  <td className="py-2 px-3 text-center">
+                    <span className={`px-2 py-0.5 rounded-full text-xs ${unitColor(d.unit)}`}>{d.unit}</span>
+                  </td>
+                  <td className="py-2 px-3 text-center">
+                    <span className="bg-gray-100 text-gray-600 text-xs px-2 py-0.5 rounded-full">م{d.phase}</span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+/* ──────────────────── Creative Deliverables ──────────────────── */
+function CreativeTab() {
+  const [activeGroup, setActiveGroup] = useState(0);
+
+  const groups = [
+    {
+      id:"identity", label:"الهوية البصرية", icon:"🎨", color:"bg-pink-600", light:"bg-pink-50 border-pink-200",
+      badge:"bg-pink-100 text-pink-700",
+      desc:"بناء الهوية البصرية الكاملة لمختبر الابتكار من الصفر — من الشعار إلى دليل الهوية الشامل",
+      items:[
+        { title:"شعار مختبر الابتكار (Logo)", detail:"تصميم شعار أصيل يعكس هوية الهيئة ويُعبّر عن روح الابتكار، مع نسخ متعددة (ملوّن، أبيض، أسود)", tags:["تصميم جرافيك","هوية بصرية"] },
+        { title:"دليل الهوية البصرية (Brand Guidelines)", detail:"وثيقة شاملة تحدد: الألوان الرسمية، الخطوط، مسافات العناصر، طرق الاستخدام الصحيحة والخاطئة للشعار", tags:["توثيق","تصميم"] },
+        { title:"الألوان والخطوط الرسمية (Color & Typography)", detail:"تحديد لوح الألوان الرئيسية والثانوية، واختيار الخطوط العربية والإنجليزية الرسمية للمختبر", tags:["هوية بصرية"] },
+        { title:"القوالب الرسمية (Templates)", detail:"قوالب جاهزة للاستخدام: عروض PowerPoint، وثائق Word، توقيع بريد إلكتروني، بطاقات أعمال، وأوراق رسمية", tags:["قوالب","تصميم"] },
+        { title:"عناصر التصميم (Design System)", detail:"مكتبة عناصر بصرية: أيقونات، رسوم توضيحية، خلفيات، أنماط تصميمية قابلة لإعادة الاستخدام", tags:["نظام تصميم"] },
+        { title:"هوية الفعاليات (Event Branding)", detail:"تطبيقات الهوية على مواد الفعاليات: لافتات، باكدروب، ملصقات، أوسمة المشاركين، وزي الفريق", tags:["فعاليات","تصميم"] },
+      ]
+    },
+    {
+      id:"marketing", label:"التسويق الرقمي", icon:"📱", color:"bg-violet-600", light:"bg-violet-50 border-violet-200",
+      badge:"bg-violet-100 text-violet-700",
+      desc:"منظومة تسويقية رقمية متكاملة لتعزيز حضور مختبر الابتكار وبرامجه على جميع القنوات",
+      items:[
+        { title:"استراتيجية التسويق الرقمي", detail:"خطة تسويقية شاملة تحدد الجمهور المستهدف، والرسائل التسويقية، والقنوات، والميزانيات، ومؤشرات القياس (KPIs)", tags:["استراتيجية","تسويق"] },
+        { title:"إدارة منصات التواصل الاجتماعي", detail:"إدارة وتشغيل حسابات المختبر على: تويتر/X، لينكدإن، إنستقرام — بما يشمل التقويم التحريري والمحتوى اليومي", tags:["سوشيال ميديا","محتوى"] },
+        { title:"تصميم المحتوى البصري (Social Media Graphics)", detail:"تصميم منشورات وستوريز وبانرات لكل منصة، مع التزام كامل بدليل الهوية البصرية للمختبر", tags:["تصميم","سوشيال ميديا"] },
+        { title:"إنتاج الفيديو والموشن جرافيك", detail:"إنتاج مقاطع فيديو تعريفية، موشن جرافيك لشرح البرامج، وتغطيات مصورة للفعاليات الكبرى كـ Demo Day والهاكاثونات", tags:["فيديو","موشن جرافيك"] },
+        { title:"التصوير الفوتوغرافي والإنتاج الإعلامي", detail:"تغطية فوتوغرافية احترافية للفعاليات، تصوير المقار والبيئة، وإنشاء مكتبة صور للاستخدام التسويقي", tags:["تصوير","إعلام"] },
+        { title:"حملات البريد الإلكتروني (Email Campaigns)", detail:"تصميم وإرسال نشرات إخبارية دورية، إعلانات البرامج، ودعوات الفعاليات لقوائم المشتركين", tags:["بريد إلكتروني","تسويق"] },
+        { title:"التسويق بالمحتوى (Content Marketing)", detail:"إنتاج مقالات، تقارير بيضاء (White Papers)، دراسات حالة لشركات ناشئة ناجحة، وبودكاست عن ابتكار التأمين", tags:["محتوى","تسويق"] },
+      ]
+    },
+    {
+      id:"website", label:"الموقع الإلكتروني", icon:"🌐", color:"bg-blue-600", light:"bg-blue-50 border-blue-200",
+      badge:"bg-blue-100 text-blue-700",
+      desc:"إعادة تصميم وتطوير الموقع الإلكتروني لهيئة التأمين مع بوابة مخصصة لمختبر الابتكار",
+      items:[
+        { title:"تدقيق UX وتحليل تجربة المستخدم الحالية", detail:"مراجعة شاملة للموقع الحالي: تحليل سلوك الزوار، خرائط الحرارة، ومقابلات المستخدمين لتحديد نقاط الألم", tags:["UX","تحليل"] },
+        { title:"إعادة تصميم الواجهة (UI Redesign)", detail:"تصميم واجهة مستخدم جديدة لموقع الهيئة: wireframes، تصاميم عالية الدقة (Hi-Fi)، وتجربة متجاوبة مع الأجهزة المختلفة", tags:["UI/UX","تصميم"] },
+        { title:"بوابة مختبر الابتكار (Innovation Lab Portal)", detail:"تصميم وبناء صفحة/بوابة مخصصة لمختبر الابتكار تعرض البرامج، الشركات الناشئة، الفعاليات، وآلية التقديم", tags:["تطوير","تصميم"] },
+        { title:"نظام إدارة المحتوى (CMS)", detail:"بناء نظام CMS سهل الاستخدام يُمكّن فريق الهيئة من تحديث المحتوى بشكل مستقل دون الحاجة لمطور", tags:["تقنية","إدارة محتوى"] },
+        { title:"تحسين محركات البحث (SEO)", detail:"تطبيق أفضل ممارسات SEO: تحسين السرعة، البنية التقنية، الكلمات المفتاحية، والمحتوى لتعزيز الظهور في نتائج البحث", tags:["SEO","تقنية"] },
+        { title:"تحليلات الأداء (Analytics)", detail:"ربط Google Analytics أو بديل، وإعداد لوحة تحكم لقياس أداء الموقع وسلوك الزوار بشكل مستمر", tags:["تحليلات","قياس"] },
+      ]
+    },
+    {
+      id:"events", label:"تصميم الفعاليات", icon:"🎪", color:"bg-amber-600", light:"bg-amber-50 border-amber-200",
+      badge:"bg-amber-100 text-amber-700",
+      desc:"تصميم وإنتاج جميع المواد الإبداعية للفعاليات الكبرى: هاكاثونات، Demo Days، وفعاليات الريادة",
+      items:[
+        { title:"تصميم هوية الهاكاثونات (Hackathon Branding)", detail:"هوية مرئية مخصصة لكل هاكاثون: اسم، شعار، ألوان، موضوع تصميمي يعكس مجال التحدي التأميني", tags:["هاكاثون","هوية"] },
+        { title:"مواد الفعاليات المطبوعة والرقمية", detail:"تصميم: لافتات، باكدروب، ملصقات، برامج الفعالية، شهادات المشاركة، هدايا تذكارية (Swag)", tags:["فعاليات","مطبوعات"] },
+        { title:"عروض Demo Day التقديمية", detail:"تصميم قوالب عروض احترافية للشركات الناشئة المشاركة في Demo Day، مع إرشادات لتقديم عروض مقنعة للمستثمرين", tags:["Demo Day","عروض"] },
+        { title:"تصميم جلسات ورش Design Thinking", detail:"تصميم المواد البصرية والتفاعلية لورش Design Thinking: Canvas، أدوات التوليد، ولوحات الأفكار", tags:["Design Thinking","ورش"] },
+        { title:"هوية برنامج InGrowth", detail:"تصميم هوية مستقلة لبرنامج InGrowth: شعار، مواد تسويقية، وكتيب إرشادي للمتقدمين والمشاركين", tags:["InGrowth","هوية"] },
+        { title:"تغطية الفعاليات وما بعدها (Post-Event Content)", detail:"إنتاج محتوى ما بعد الفعالية: ملخصات مصورة، مقاطع فيديو بارزة، تقارير الأثر، وقصص نجاح للنشر", tags:["محتوى","فعاليات"] },
+      ]
+    },
+    {
+      id:"reports", label:"التقارير والنشر", icon:"📰", color:"bg-teal-600", light:"bg-teal-50 border-teal-200",
+      badge:"bg-teal-100 text-teal-700",
+      desc:"تصميم التقارير الرسمية والمنشورات الدورية بأسلوب احترافي يعكس هوية هيئة التأمين",
+      items:[
+        { title:"تصميم تقرير الأثر السنوي (Annual Impact Report)", detail:"تصميم إنفوجرافيك وتقرير مرئي سنوي يُظهر مؤشرات الابتكار، الأثر، ونتائج البرامج بأسلوب بصري جذاب", tags:["تقرير","إنفوجرافيك"] },
+        { title:"الإنفوجرافيك والرسوم البيانية", detail:"تحويل البيانات والأرقام إلى إنفوجرافيك واضح وجذاب لاستخدامه في التقارير، والعروض، وقنوات التواصل", tags:["إنفوجرافيك","بيانات"] },
+        { title:"النشرة الإخبارية الدورية (Newsletter)", detail:"تصميم قالب نشرة إخبارية شهرية تُرسَل لمجتمع الابتكار: أخبار البرامج، قصص النجاح، والفرص القادمة", tags:["نشرة","تصميم"] },
+        { title:"تقارير بيضاء وأبحاث قطاع InsurTech (White Papers)", detail:"تصميم وإنتاج تقارير بحثية عن سوق التأمين والتقنية، لتعزيز مكانة الهيئة كقائد فكري في المجال", tags:["أبحاث","نشر"] },
+        { title:"مواد التدريب والتأهيل المرئية", detail:"تصميم مواد تعليمية بصرية: دليل المشارك، ورش العمل، وعروض برامج التدريب لنقل المعرفة بشكل فعّال", tags:["تدريب","محتوى"] },
+        { title:"كتيب المختبر والبروشور التعريفي", detail:"تصميم كتيب تعريفي احترافي يشرح رؤية مختبر الابتكار، برامجه، كيفية المشاركة، وقصص النجاح", tags:["مطبوعات","تسويق"] },
+      ]
+    },
+  ];
+
+  const allCount = groups.reduce((s,g)=>s+g.items.length,0);
+
+  return (
+    <div className="space-y-6 fade-in">
+
+      {/* Hero banner */}
+      <div className="rounded-xl p-6 text-white" style={{background:"linear-gradient(135deg,#6d28d9,#7c3aed,#8b5cf6)"}}>
+        <div className="flex items-start gap-4">
+          <div className="bg-white/20 rounded-xl p-3 text-3xl shrink-0">🎨</div>
+          <div>
+            <h2 className="text-xl font-extrabold mb-1">المخرجات الإبداعية والتسويقية</h2>
+            <p className="text-purple-100 text-sm leading-relaxed">
+              منظومة متكاملة من المخرجات الإبداعية تشمل الهوية البصرية، التسويق الرقمي، تصميم الموقع، إنتاج الفعاليات، والتقارير المرئية — كلها جزء أساسي من نطاق عمل المناقصة.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-3">
+              <span className="bg-white/20 rounded-full px-3 py-1 text-xs">{groups.length} محاور إبداعية</span>
+              <span className="bg-white/20 rounded-full px-3 py-1 text-xs">{allCount} مخرجاً إبداعياً</span>
+              <span className="bg-white/20 rounded-full px-3 py-1 text-xs">مصمم خدمات متخصص مطلوب</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Stats */}
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        {groups.map((g,i)=>(
+          <button key={i} onClick={()=>setActiveGroup(i)}
+            className={`rounded-xl p-4 text-center border-2 transition-all ${activeGroup===i ? `${g.color} text-white border-transparent shadow-lg scale-105` : "bg-white border-gray-200 hover:border-purple-300 text-gray-600"}`}>
+            <div className="text-2xl mb-1">{g.icon}</div>
+            <div className="text-xs font-bold leading-tight">{g.label}</div>
+            <div className={`text-xs mt-1 ${activeGroup===i?"opacity-80":"text-gray-400"}`}>{g.items.length} مخرجات</div>
+          </button>
+        ))}
+      </div>
+
+      {/* Detail panel */}
+      <div className={`rounded-xl border-2 ${groups[activeGroup].light} p-6 fade-in`}>
+        <div className="flex items-center gap-3 mb-2">
+          <span className="text-4xl">{groups[activeGroup].icon}</span>
+          <div>
+            <h3 className="text-lg font-extrabold text-gray-800">{groups[activeGroup].label}</h3>
+            <p className="text-xs text-gray-500">{groups[activeGroup].items.length} مخرجاً</p>
+          </div>
+        </div>
+        <p className="text-sm text-gray-600 mb-5 leading-relaxed bg-white rounded-lg p-3 border border-gray-100">
+          {groups[activeGroup].desc}
+        </p>
+        <div className="grid md:grid-cols-2 gap-3">
+          {groups[activeGroup].items.map((item,j)=>(
+            <div key={j} className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+              <div className="flex items-start justify-between gap-2 mb-2">
+                <h4 className="font-bold text-gray-800 text-sm">{item.title}</h4>
+              </div>
+              <p className="text-xs text-gray-600 leading-relaxed mb-3">{item.detail}</p>
+              <div className="flex flex-wrap gap-1">
+                {item.tags.map((tag,k)=>(
+                  <span key={k} className={`${groups[activeGroup].badge} text-xs px-2 py-0.5 rounded-full`}>{tag}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Full overview table */}
+      <Card>
+        <SectionTitle>جدول المخرجات الإبداعية الكاملة</SectionTitle>
+        <div className="overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr style={{background:"linear-gradient(90deg,#6d28d9,#7c3aed)"}} className="text-white">
+                <th className="py-2 px-3 text-right rounded-tr-lg">المخرج الإبداعي</th>
+                <th className="py-2 px-3 text-center">التصنيف</th>
+                <th className="py-2 px-3 text-right rounded-tl-lg">الوصف المختصر</th>
+              </tr>
+            </thead>
+            <tbody>
+              {groups.map((g,gi)=>
+                g.items.map((item,ii)=>(
+                  <tr key={`${gi}-${ii}`} className={(gi+ii)%2===0?"bg-gray-50":"bg-white"}>
+                    <td className="py-2 px-3 font-medium text-gray-800 text-xs">
+                      <span className="ml-2">{g.icon}</span>{item.title}
+                    </td>
+                    <td className="py-2 px-3 text-center">
+                      <span className={`${g.badge} text-xs px-2 py-0.5 rounded-full`}>{g.label}</span>
+                    </td>
+                    <td className="py-2 px-3 text-xs text-gray-500">{item.detail.substring(0,60)}…</td>
+                  </tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+
+      {/* Key creative roles */}
+      <Card>
+        <SectionTitle>الأدوار الإبداعية المطلوبة من الفريق</SectionTitle>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            { icon:"🎨", role:"مصمم خدمات (Service Designer)", resp:"Design Thinking، UX/UI، تصميم ورش العمل الإبداعية، نماذج أولية", must:true },
+            { icon:"📱", role:"مختص تسويق رقمي", resp:"إدارة السوشيال ميديا، حملات البريد الإلكتروني، إنتاج المحتوى الرقمي", must:false },
+            { icon:"🌐", role:"مطور الواجهة الأمامية (Frontend)", resp:"تطوير وإعادة تصميم الموقع الإلكتروني ومنصة الابتكار", must:true },
+            { icon:"📷", role:"مصوّر ومنتج إعلامي", resp:"تصوير الفعاليات، إنتاج الفيديو، الموشن جرافيك والإنفوجرافيك", must:false },
+            { icon:"✏️", role:"مصمم جرافيك", resp:"هوية بصرية، مواد مطبوعة ورقمية، قوالب رسمية وعروض تقديمية", must:false },
+            { icon:"📝", role:"كاتب محتوى إبداعي", resp:"تقارير، مقالات، تغريدات، نشرات، وأبحاث قطاع InsurTech", must:false },
+          ].map((r,i)=>(
+            <div key={i} className={`rounded-xl p-4 border-2 ${r.must?"border-purple-300 bg-purple-50":"border-gray-200 bg-white"}`}>
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">{r.icon}</span>
+                  <h4 className="font-bold text-gray-800 text-xs">{r.role}</h4>
+                </div>
+                {r.must && <span className="bg-purple-600 text-white text-xs px-2 py-0.5 rounded-full shrink-0">مذكور</span>}
+              </div>
+              <p className="text-xs text-gray-600 mt-1">{r.resp}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-4 bg-purple-50 border border-purple-200 rounded-lg p-3">
+          <p className="text-xs text-purple-800">
+            <strong>ملاحظة:</strong> الأدوار المُعلَّمة بـ "مذكور" وردت صراحةً في كراسة الشروط. بقية الأدوار يُقترح تضمينها ضمن فريق العمل لتحقيق المخرجات الإبداعية المطلوبة.
+          </p>
+        </div>
+      </Card>
+
+      {/* Creative timeline */}
+      <Card>
+        <SectionTitle>توزيع المخرجات الإبداعية على مراحل المشروع</SectionTitle>
+        <div className="space-y-3">
+          {[
+            { phase:"م1 — 30 يوم", color:"bg-green-500", items:["هوية بصرية أولية (مسودة)","خطة التسويق الرقمي","تحليل UX للموقع الحالي"] },
+            { phase:"م2 — 30 يوم", color:"bg-teal-500", items:["دليل الهوية البصرية الكامل (Brand Guidelines)","قوالب رسمية Word / PowerPoint","واجهة موقع مختبر الابتكار (Wireframes)"] },
+            { phase:"م3 — 45 يوم", color:"bg-emerald-500", items:["تصميم UI للموقع والمنصة (Hi-Fi)","هوية الهاكاثون الأول","إطلاق حسابات التواصل الاجتماعي"] },
+            { phase:"م4 — 60 يوم", color:"bg-blue-500", items:["إطلاق الموقع المُعاد تصميمه","تصوير الهاكاثون الأول","إنتاج فيديو تعريفي للمختبر","نشرة إخبارية أولى"] },
+            { phase:"م5 — 90 يوم", color:"bg-violet-500", items:["مواد Demo Day (تصميم عروض الشركات)","تغطية فعاليات Go-To-Market","إنفوجرافيك نتائج مرحلة أولى"] },
+            { phase:"م6 — مستمر", color:"bg-purple-600", items:["تقرير الأثر السنوي المرئي","White Papers عن Insurtech","تغطيات الفعاليات المستمرة","تحديثات هوية برامج جديدة"] },
+          ].map((p,i)=>(
+            <div key={i} className="flex gap-3 items-start">
+              <span className={`${p.color} text-white text-xs px-3 py-1.5 rounded-full whitespace-nowrap shrink-0 font-semibold mt-0.5`}>{p.phase}</span>
+              <div className="flex flex-wrap gap-2">
+                {p.items.map((item,j)=>(
+                  <span key={j} className="bg-gray-100 text-gray-700 text-xs px-2.5 py-1 rounded-full border border-gray-200">{item}</span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+    </div>
+  );
+}
+
+/* ──────────────────── FAQ ──────────────────── */
+function FAQTab() {
+  const [open, setOpen] = useState(null);
+  const faqs = [
+    {co:"SmartTech / TPA", q:"ما متطلبات المنصة التقنية — مخصصة أم جاهزة؟", a:"المنصة المطلوبة مخصصة (Custom-built) وليست ترخيصاً لمنصة جاهزة، مع المرونة للمتنافس في اقتراح التفصيل ضمن عرضه الفني. يجب أن تكون Web & Mobile Ready.", color:"bg-green-100 text-green-700"},
+    {co:"SmartTech / TPA", q:"ما عدد المستخدمين المتوقعين للمنصة؟", a:"العدد المتوقع بين 50 و100 مستخدم بشكل رئيسي من موظفي وقيادات هيئة التأمين.", color:"bg-green-100 text-green-700"},
+    {co:"SmartTech / TPA", q:"هل يتضمن نطاق العمل بناء الهوية البصرية (Branding)؟", a:"نعم، يشمل بناء الهوية البصرية الكاملة لمختبر الابتكار: التصميم، الألوان، الخطوط، القوالب، والدليل البصري الشامل (Brand Guidelines).", color:"bg-green-100 text-green-700"},
+    {co:"SmartTech / TPA", q:"هل ستُدرج الهدايا والتغطية الإعلامية والتصوير والترجمة في الميزانية؟", a:"نعم، تُدرج ضمن نطاق العمل بنود الهدايا، التغطية الإعلامية، التصوير، الترجمة، والسفر والإقامة للموجهين والخبراء إذا كانوا من مناطق أو دول أخرى.", color:"bg-green-100 text-green-700"},
+    {co:"القياسات الجديدة", q:"ما مستوى التواجد في مقر الهيئة مقابل العمل عن بُعد؟", a:"يُشترط التواجد في مقر الهيئة 5 أيام أسبوعياً لفريق العمل الأساسي. البيئة التشغيلية التفصيلية ستُحدد خلال المرحلة الأولى من العقد.", color:"bg-blue-100 text-blue-700"},
+    {co:"القياسات الجديدة", q:"هل يمكن الاستعانة بـ Playbooks جاهزة؟", a:"يمكن الاستعانة بـ Playbooks موجودة كمرجع ومنطلق، شريطة تكييفها وتخصيصها بالكامل لتناسب بيئة هيئة التأمين وسياقها المؤسسي.", color:"bg-blue-100 text-blue-700"},
+    {co:"جودين لتقنية المعلومات", q:"ما الأنظمة الحالية المطلوب التكامل معها؟", a:"سيتم تحديد الأنظمة المطلوب التكامل معها خلال مرحلة التنفيذ. الأنظمة غير المسماة تتعلق بالمكونات التقنية الداعمة. على المتنافس اقتراح آليات التكامل ضمن عرضه الفني.", color:"bg-purple-100 text-purple-700"},
+    {co:"حلول التحول", q:"هل مطلوب توفير قناة لجمع أفكار القطاع (صوت القطاع)؟", a:"نعم، مطلوب تصميم وتفعيل مسار لجمع الأفكار من القطاع التأميني وتصفيتها ومتابعتها عبر منصة إدارة الابتكار.", color:"bg-amber-100 text-amber-700"},
+    {co:"عام", q:"هل توجد أدوات حالية لإدارة المعرفة في مجال الابتكار؟", a:"لا توجد أدوات مخصصة لإدارة المعرفة في مجال الابتكار حالياً في الهيئة.", color:"bg-gray-100 text-gray-700"},
+    {co:"عام", q:"ما مدة مرحلة الحضانة (Incubation)؟", a:"مدة برنامج الحاضنة 6 أشهر لكل دفعة (Cohort)، مع إمكانية تشغيل دفعتين على الأقل خلال مدة العقد.", color:"bg-gray-100 text-gray-700"},
+    {co:"عام", q:"ما المقصود بـ Sandbox في سياق هيئة التأمين؟", a:"بيئة تجريبية تنظيمية تُتيح للشركات الناشئة اختبار منتجاتها التأمينية تحت إشراف الهيئة. يشمل نطاق العمل دعم الشركات في الدخول لهذه البيئة والحصول على الموافقة التنظيمية.", color:"bg-gray-100 text-gray-700"},
+    {co:"عام", q:"ما متطلبات الأمن السيبراني (TNCA/ISO)؟", a:"الالتزام بمتطلبات الأمن السيبراني الصادرة عن الهيئة الوطنية للأمن السيبراني (NCA). التفاصيل الكاملة في الملحق 4 من كراسة الشروط.", color:"bg-gray-100 text-gray-700"},
+    {co:"عام", q:"من هم المستخدمون المستهدفون للمنصة؟", a:"موظفو وقيادات هيئة التأمين بشكل رئيسي، إضافةً إلى الشركات الناشئة والمتقدمين للبرامج من القطاع الخاص.", color:"bg-gray-100 text-gray-700"},
+    {co:"عام", q:"هل يمكن استخدام منصات تقنية من خارج المملكة؟", a:"يجب الامتثال لمتطلبات الأمن السيبراني واشتراطات الاستضافة المحلية المعمول بها. يُفصّل المتنافس مقترحه التقني مع مراعاة هذه الاشتراطات.", color:"bg-gray-100 text-gray-700"},
+  ];
+
+  return (
+    <div className="space-y-4 fade-in">
+      <Card>
+        <SectionTitle>إجابات استفسارات المنافسة</SectionTitle>
+        <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-5">
+          <p className="text-blue-800 text-xs"><strong>6 شركات</strong> شاركت في جلسة الاستفسار — الإجابات صادرة رسمياً من هيئة التأمين وملزمة لجميع المتنافسين</p>
+        </div>
+        <div className="space-y-2">
+          {faqs.map((faq,i)=>(
+            <div key={i} className="border border-gray-200 rounded-xl overflow-hidden">
+              <button onClick={()=>setOpen(open===i?null:i)}
+                className="w-full text-right p-3.5 flex items-center justify-between hover:bg-gray-50 transition-colors gap-3">
+                <div className="flex items-center gap-2 min-w-0">
+                  <span className={`text-xs px-2 py-0.5 rounded-full shrink-0 ${faq.color}`}>{faq.co}</span>
+                  <span className="text-sm font-medium text-gray-800 truncate">{faq.q}</span>
+                </div>
+                <span className="text-gray-400 shrink-0 text-xs">{open===i?"▲":"▼"}</span>
+              </button>
+              {open===i && (
+                <div className="px-4 pb-4 bg-green-50 border-t border-green-100 fade-in">
+                  <p className="text-sm text-gray-700 leading-relaxed pt-3">{faq.a}</p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+      </Card>
+    </div>
+  );
+}
+
+/* ──────────────────── Root App ──────────────────── */
+function App() {
+  const [activeTab, setActiveTab] = useState("overview");
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <header className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex items-center justify-between h-14">
+            <div className="flex items-center gap-2.5">
+              <div className="w-9 h-9 bg-green-700 rounded-lg flex items-center justify-center text-white font-extrabold text-sm shadow">IA</div>
+              <div>
+                <p className="text-xs text-gray-400 leading-none">هيئة التأمين — Insurance Authority</p>
+                <p className="text-sm font-extrabold text-gray-800 leading-tight">داشبورد المناقصة 74-2026</p>
+              </div>
+            </div>
+            <div className="hidden md:flex items-center gap-2">
+              <span className="text-xs text-gray-400">استراتيجية الابتكار</span>
+              <span className="w-1 h-1 bg-gray-300 rounded-full"></span>
+              <span className="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">مناقصة نشطة</span>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Tab nav */}
+      <nav className="bg-white border-b border-gray-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex gap-0 overflow-x-auto tab-scroll">
+            {TABS.map(tab=>(
+              <button key={tab.id} onClick={()=>setActiveTab(tab.id)}
+                className={`px-4 py-3 text-sm font-medium whitespace-nowrap border-b-2 transition-colors flex items-center gap-1.5 ${
+                  activeTab===tab.id
+                    ? "border-green-600 text-green-700 bg-green-50"
+                    : "border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300"
+                }`}>
+                <span>{tab.icon}</span>
+                <span>{tab.label}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
+      {/* Content */}
+      <main className="max-w-7xl mx-auto px-4 py-6">
+        {activeTab==="overview"     && <OverviewTab />}
+        {activeTab==="scope"        && <ScopeTab />}
+        {activeTab==="timeline"     && <TimelineTab />}
+        {activeTab==="evaluation"   && <EvaluationTab />}
+        {activeTab==="team"         && <TeamTab />}
+        {activeTab==="deliverables" && <DeliverablesTab />}
+        {activeTab==="creative"     && <CreativeTab />}
+        {activeTab==="faq"          && <FAQTab />}
+      </main>
+
+      {/* Footer */}
+      <footer className="bg-white border-t border-gray-200 mt-10">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+          <p className="text-xs text-gray-400">هيئة التأمين — كراسة الشروط والمواصفات رقم 74-2026 | تصنيف: عام</p>
+          <p className="text-xs text-gray-400">مدة التنفيذ: 18 شهراً</p>
+        </div>
+      </footer>
+    </div>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
